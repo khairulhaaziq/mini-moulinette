@@ -186,7 +186,7 @@ if [ "${1}" = "" ]; then
     printf "Please select an assignment. e.g. './test.sh C01'\n"
     exit 1
 fi
-if [ "${1}" = "C00" -o "${1}" = "C01" -o "${1}" = "C02" -o "${1}" = "C03" -o "${1}" = "C04" -o "${1}" = "C05" -o "${1}" = "C06" -o "${1}" = "C07" -o "${1}" = "C08" -o "${1}" = "C09" -o "${1}" = "C10" -o "${1}" = "C11" -o "${1}" = "C12" -o "${1}" = "C13" ]; then
+if [[ "${1}" =~ ^C(0[0-9]|1[0-3])$ ]]; then
     main "$@"
     printf "$DEFAULT"
     exit

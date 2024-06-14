@@ -1,6 +1,8 @@
 #!/bin/bash
 
 source ~/mini-moulinette/mini-moul/config.sh
+# assignment name
+assignment=NULL
 
 function handle_sigint {
   echo "${RED}Script aborted by user. Cleaning up..."
@@ -10,25 +12,30 @@ function handle_sigint {
   exit 1
 }
 
-if [[ "$#" -eq 1 ]]; then
-	cp -R ~/mini-moulinette/mini-moul mini-moul
+# Function to determine if current directory matches a pattern
+detect_assignment() {
+  assignment=$(basename "$(pwd)")
+  [[ $assignment =~ ^C(0[0-9]|1[0-3])$ ]]
+}
+
+if detect_assignment; then
+  cp -R ~/mini-moulinette/mini-moul mini-moul
   run_norminette
   trap handle_sigint SIGINT
-	cd mini-moul
-  ./test.sh "$1"
+  cd mini-moul
+  ./test.sh "$assignment"
   rm -R ../mini-moul
 else
-  printf "${RED}You need to choose an assignment. e.g: mini C02\n${DEFAULT}"
-
+  printf "${RED}Current directory does not match expected pattern (C[00~13]).${DEFAULT}\n"
+  printf "${RED}Please navigate to an appropriate directory to run tests.${DEFAULT}\n"
 fi
 
 exit 1
 
-run_norminette()
-{
-    if command -v norminette &> /dev/null; then
-        norminette
-    else
-        echo "norminette not found, skipping norminette checks"
-    fi
+run_norminette() {
+  if command -v norminette &> /dev/null; then
+    norminette
+  else
+    echo "norminette not found, skipping norminette checks"
+  fi
 }

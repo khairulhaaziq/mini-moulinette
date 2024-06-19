@@ -39,11 +39,10 @@ int main(void)
             .base_to = "0123456789ABCDEF",
             .expected = "2A",
         },
-	/*
         {
             .desc = "Invalid base_from",
             .nbr = "42",
-            .base_from = "012345678",
+            .base_from = "01234567899",
             .base_to = "01",
             .expected = NULL,
         },
@@ -51,10 +50,9 @@ int main(void)
             .desc = "Invalid base_to",
             .nbr = "42",
             .base_from = "0123456789",
-            .base_to = "01a",
+            .base_to = "5",
             .expected = NULL,
         },
-	*/
     };
     int count = sizeof(tests) / sizeof(tests[0]);
 

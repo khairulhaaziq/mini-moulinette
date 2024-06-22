@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../../../../ex04/ft_convert_base.c"
+#if __has_include("../../../../ex04/ft_convert_base2.c")
+# include "../../../../ex04/ft_convert_base2.c"
+#endif
 #include "../../../utils/constants.h"
 
 typedef struct s_test

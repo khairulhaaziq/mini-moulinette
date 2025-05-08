@@ -49,6 +49,21 @@ int	test3(void)
 	return (0);
 }
 
+int	test4(void)
+{
+	int result;
+
+	result = ft_str_is_alpha("AadszaZffq");
+	if (result != 0)
+	{
+		printf("    " RED "[3] ft_str_is_alpha(\"AadszaZffq\") Expected 1, got %d\n", result);
+		return (-1);
+	}
+	else
+		printf("  "GREEN CHECKMARK GREY" [3] ft_str_is_alpha(\"AadszaZffq\") Expected 1, got %d\n"DEFAULT, result);
+	return (0);
+}
+
 int	main(void)
 {
 	if (test1()+test2()+test3()!=0)

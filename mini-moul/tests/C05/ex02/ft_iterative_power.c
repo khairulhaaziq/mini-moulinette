@@ -19,6 +19,12 @@ int main(void)
 {
     t_test tests[] = {
         {
+            .desc = "0 power 0 (edge case)",
+            .base = 0,
+            .power = 0,
+            .expected = 1,
+        },        
+        {
             .desc = "Power of 0",
             .base = 10,
             .power = 0,

@@ -87,7 +87,7 @@ int main(void)
         	.desc = "Charset cntains characters from words",
          	.str = "hello,world",
           	.charset = "lo,",
-           	.expected = (char *[4]) {"he", "w", "rd", 0},
+           	.expected = (char *[5]) {"he", "w", "r", "d", 0},
         },
         {
         	.desc = "Charset with duplicated characters",

@@ -47,7 +47,36 @@ int main(void)
             .base = "0123456789abcdef",
             .expected_output = -89,
         },
-        // Add more test cases here
+	{
+	    .desc = "Zero with empty base",
+	    .str = "0",
+	    .base = "",
+	    .expected_output = 0,
+	},
+	{
+	    .desc = "Positive number with single-character base",
+	    .str = "42",
+	    .base = "a",
+	    .expected_output = 0,
+	},
+	{
+	    .desc = "Negative hexadecimal with base containing +",
+	    .str = "-1A",
+	    .base = "01234+6789ABCDEF",
+	    .expected_output = 0,
+	},
+	{
+	    .desc = "Binary with base containing whitespace",
+	    .str = "1010",
+	    .base = "0 1",
+	    .expected_output = 0,
+	},
+	{
+	    .desc = "Octal with base containing -",
+	    .str = "77",
+	    .base = "01234-67",
+	    .expected_output = 0,
+	},
     };
     int count = sizeof(tests) / sizeof(tests[0]);
 

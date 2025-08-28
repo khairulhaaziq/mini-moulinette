@@ -63,6 +63,21 @@ int main(void)
 		.src = "0123456789ABCDEF",
 		.expected = "0123456789ABCDEF",
 	    },
+	    {
+		.desc = "Print DEL character (ASCII 127)",
+		.src = "Hello\x7FWorld",
+		.expected = "Hello\\7fWorld",
+	    },
+	    {
+		.desc = "Print extended ASCII character (ASCII 128)",
+		.src = (char[]){'T','e','s','t','\x80','E','n','d','\0'},
+		.expected = "Test\\80End",
+	    },
+	    {
+		.desc = "Print extended ASCII character (ASCII 255)",
+		.src = (char[]){'T','e','s','t','\xFF','E','n','d','\0'},
+		.expected = "Test\\ffEnd",
+	    },
 	    // Add more test cases here
 	};
 	int count = sizeof(tests) / sizeof(tests[0]);

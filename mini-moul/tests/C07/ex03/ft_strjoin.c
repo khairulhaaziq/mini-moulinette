@@ -52,6 +52,55 @@ int main(void)
             .strs = (char*[]){ "Hello", "world" },
             .sep = "",
             .expected = "Helloworld"
+        },
+        {
+            .desc = "ft_strjoin with size 5 and various strings",
+            .size = 5,
+            .strs = (char*[]){ "This", "is", "a", "test", "string" },
+            .sep = " ",
+            .expected = "This is a test string"
+        },
+        {
+            .desc = "ft_strjoin with size 3 and long separator",
+            .size = 3,
+            .strs = (char*[]){ "one", "two", "three" },
+            .sep = " -> ",
+            .expected = "one -> two -> three"
+        },
+        {
+            .desc = "ft_strjoin with size 2 and single character strings",
+            .size = 2,
+            .strs = (char*[]){ "a", "b" },
+            .sep = "|",
+            .expected = "a|b"
+        },
+        {
+            .desc = "ft_strjoin with size 1 and empty string",
+            .size = 1,
+            .strs = (char*[]){ "" },
+            .sep = ",",
+            .expected = ""
+        },
+        {
+            .desc = "ft_strjoin with size 3 and all empty strings",
+            .size = 3,
+            .strs = (char*[]){ "", "", "" },
+            .sep = "-",
+            .expected = "--"
+        },
+        {
+            .desc = "ft_strjoin with size 4 and special characters",
+            .size = 4,
+            .strs = (char*[]){ "Hello", "World", "123", "!!!" },
+            .sep = "###",
+            .expected = "Hello###World###123###!!!"
+        },
+        {
+            .desc = "ft_strjoin with size 2 and newline separator",
+            .size = 2,
+            .strs = (char*[]){ "Line1", "Line2" },
+            .sep = "\n",
+            .expected = "Line1\nLine2"
         }
     };
     int count = sizeof(tests) / sizeof(tests[0]);

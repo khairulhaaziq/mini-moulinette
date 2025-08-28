@@ -48,6 +48,12 @@ int main(void)
             .power = -3,
             .expected = 0,
         },
+        {
+            .desc = "0 power 0 (edge case)",
+            .base = 0,
+            .power = 0,
+            .expected = 1,
+        },
     };
     int count = sizeof(tests) / sizeof(tests[0]);
 

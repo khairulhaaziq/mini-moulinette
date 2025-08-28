@@ -37,6 +37,13 @@ int	main(void)
 		}
 	};
 	int count = sizeof(tests) / sizeof(tests[0]);
+
+	// Fill destination buffers with 'X' so the tests will reveal whether
+	// ft_strcpy actually wrote a terminating '\0' byte into the destination.
+	for (int i = 0; i < count; i++)
+	{
+		memset(tests[i].dest, 'X', sizeof(tests[i].dest));
+	}
 	
 	return (run_tests(tests, count));
 }

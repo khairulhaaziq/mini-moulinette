@@ -52,6 +52,96 @@ int main(void)
             .n = -5,
             .expected = 0,
         },
+        {
+            .desc = "Is 0 prime",
+            .n = 0,
+            .expected = 0,
+        },
+        {
+            .desc = "Is 5 prime",
+            .n = 5,
+            .expected = 1,
+        },
+        {
+            .desc = "Is 7 prime",
+            .n = 7,
+            .expected = 1,
+        },
+        {
+            .desc = "Is 9 prime",
+            .n = 9,
+            .expected = 0,
+        },
+        {
+            .desc = "Is 11 prime",
+            .n = 11,
+            .expected = 1,
+        },
+        {
+            .desc = "Is 13 prime",
+            .n = 13,
+            .expected = 1,
+        },
+        {
+            .desc = "Is 15 prime",
+            .n = 15,
+            .expected = 0,
+        },
+        {
+            .desc = "Is 19 prime",
+            .n = 19,
+            .expected = 1,
+        },
+        {
+            .desc = "Is 21 prime",
+            .n = 21,
+            .expected = 0,
+        },
+        {
+            .desc = "Is 25 prime",
+            .n = 25,
+            .expected = 0,
+        },
+        {
+            .desc = "Is 29 prime",
+            .n = 29,
+            .expected = 1,
+        },
+        {
+            .desc = "Is 49 prime",
+            .n = 49,
+            .expected = 0,
+        },
+        {
+            .desc = "Is 97 prime",
+            .n = 97,
+            .expected = 1,
+        },
+        {
+            .desc = "Is 100 prime",
+            .n = 100,
+            .expected = 0,
+        },
+        {
+            .desc = "Is 101 prime",
+            .n = 101,
+            .expected = 1,
+        },
+        {
+            .desc = "Is 121 prime",
+            .n = 121,
+            .expected = 0,
+        },
+	{
+	    .desc = "Is 2147480197 prime (should not take longer than a second to test)",
+	    .n = 2147480197,
+	    .expected = 1,
+	},
+	{
+	    .desc = "Is 2147480927 prime (should not take longer than a second to test)",
+	    .n = 2147480927,
+	    .expected = 1,
+	}
     };
     int count = sizeof(tests) / sizeof(tests[0]);
 

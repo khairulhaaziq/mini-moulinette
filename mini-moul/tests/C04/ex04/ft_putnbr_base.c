@@ -78,6 +78,24 @@ int main(void)
         .base = "a",
         .expected = "",
     },
+    {
+	.desc = "Zero with empty base",
+	.nbr = 0,
+	.base = "",
+	.expected = "",
+    },
+    {
+	.desc = "Positive number with single-character base",
+	.nbr = 42,
+	.base = "a",
+	.expected = "",
+    },
+    {
+	.desc = "Negative number with base containing +",
+	.nbr = -10,
+	.base = "0+1",
+	.expected = "",
+    },
 };
     int count = sizeof(tests) / sizeof(tests[0]);
 

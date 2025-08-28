@@ -14,28 +14,37 @@ function handle_sigint {
 
 # Function to determine if current directory matches a pattern
 detect_assignment() {
-  assignment=$(basename "$(pwd)")
-  [[ $assignment =~ ^C(0[0-9]|1[0-3])$ ]]
+  local dir_name=$(basename "$(pwd)")
+  # Extract assignment pattern from directory name (e.g., C00, C01, etc.)
+  if [[ $dir_name =~ C(0[0-9]|1[0-3]) ]]; then
+    assignment="${BASH_REMATCH[0]}"
+    return 0
+  fi
+  return 1
 }
 
-if detect_assignment; then
-  cp -R ~/mini-moulinette/mini-moul mini-moul
-  run_norminette
-  trap handle_sigint SIGINT
-  cd mini-moul
-  ./test.sh "$assignment"
-  rm -R ../mini-moul
+# Check if assignment was provided as argument
+if [[ -n "$1" && $1 =~ ^C(0[0-9]|1[0-3])$ ]]; then
+  assignment="$1"
+elif detect_assignment; then
+  # assignment already set by detect_assignment function
+  :
 else
-  printf "${RED}Current directory does not match expected pattern (C[00~13]).${DEFAULT}\n"
-  printf "${RED}Please navigate to an appropriate directory to run tests.${DEFAULT}\n"
+  printf "${RED}Could not detect assignment from directory name and no valid assignment provided.${DEFAULT}\n"
+  printf "${RED}Usage: mini [C00-C13] or run from a directory containing C00-C13 pattern.${DEFAULT}\n"
+  printf "${RED}Examples: mini C00, or run from directory like 'git_C00', 'TestingC01', 'C02_Name'${DEFAULT}\n"
+  exit 1
 fi
 
-exit 1
+cp -R ~/mini-moulinette/mini-moul mini-moul
+if command -v norminette &> /dev/null; then
+	norminette $(ls | grep -v 'mini-moul')
+else
+	echo "norminette not found, skipping norminette checks"
+fi
+trap handle_sigint SIGINT
+cd mini-moul
+./test.sh "$assignment"
+rm -R ../mini-moul
 
-run_norminette() {
-  if command -v norminette &> /dev/null; then
-    norminette
-  else
-    echo "norminette not found, skipping norminette checks"
-  fi
-}
+exit 1

@@ -42,7 +42,116 @@ int main(void)
             .n = -5,
             .expected = 2,
         },
-        // Add more test cases here
+        {
+            .desc = "Next prime after 3",
+            .n = 3,
+            .expected = 3,
+        },
+        {
+            .desc = "Next prime after 4",
+            .n = 4,
+            .expected = 5,
+        },
+        {
+            .desc = "Next prime after 5",
+            .n = 5,
+            .expected = 5,
+        },
+        {
+            .desc = "Next prime after 6",
+            .n = 6,
+            .expected = 7,
+        },
+        {
+            .desc = "Next prime after 7",
+            .n = 7,
+            .expected = 7,
+        },
+        {
+            .desc = "Next prime after 8",
+            .n = 8,
+            .expected = 11,
+        },
+        {
+            .desc = "Next prime after 9",
+            .n = 9,
+            .expected = 11,
+        },
+        {
+            .desc = "Next prime after 11",
+            .n = 11,
+            .expected = 11,
+        },
+        {
+            .desc = "Next prime after 12",
+            .n = 12,
+            .expected = 13,
+        },
+        {
+            .desc = "Next prime after 13",
+            .n = 13,
+            .expected = 13,
+        },
+        {
+            .desc = "Next prime after 14",
+            .n = 14,
+            .expected = 17,
+        },
+        {
+            .desc = "Next prime after 15",
+            .n = 15,
+            .expected = 17,
+        },
+        {
+            .desc = "Next prime after 16",
+            .n = 16,
+            .expected = 17,
+        },
+        {
+            .desc = "Next prime after 17",
+            .n = 17,
+            .expected = 17,
+        },
+        {
+            .desc = "Next prime after 18",
+            .n = 18,
+            .expected = 19,
+        },
+        {
+            .desc = "Next prime after 19",
+            .n = 19,
+            .expected = 19,
+        },
+        {
+            .desc = "Next prime after 20",
+            .n = 20,
+            .expected = 23,
+        },
+        {
+            .desc = "Next prime after 97",
+            .n = 97,
+            .expected = 97,
+        },
+        {
+            .desc = "Next prime after 98",
+            .n = 98,
+            .expected = 101,
+        },
+        {
+            .desc = "Next prime after 100",
+            .n = 100,
+            .expected = 101,
+        },
+        {
+            .desc = "Next prime after 101",
+            .n = 101,
+            .expected = 101,
+        },
+        {
+            .desc = "Next prime after 120",
+            .n = 120,
+            .expected = 127,
+        },
     };
     int count = sizeof(tests) / sizeof(tests[0]);
 

@@ -42,7 +42,71 @@ int main(void)
             .n = -5,
             .expected = 0,
         },
-        // Add more test cases here
+        {
+        	.desc = "Square root of INT_MAX",
+         	.n = 2147483647,
+         	.expected = 0,
+        },
+        {
+        	.desc = "Square root of number with no root",
+         	.n = 1512,
+          	.expected = 0,
+        },
+        {
+            .desc = "Square root of 4",
+            .n = 4,
+            .expected = 2,
+        },
+        {
+            .desc = "Square root of 9",
+            .n = 9,
+            .expected = 3,
+        },
+        {
+            .desc = "Square root of 25",
+            .n = 25,
+            .expected = 5,
+        },
+        {
+            .desc = "Square root of 100",
+            .n = 100,
+            .expected = 10,
+        },
+        {
+            .desc = "Square root of 121",
+            .n = 121,
+            .expected = 11,
+        },
+        {
+            .desc = "Square root of 144",
+            .n = 144,
+            .expected = 12,
+        },
+        {
+            .desc = "Square root of 169",
+            .n = 169,
+            .expected = 13,
+        },
+        {
+            .desc = "Square root of 196",
+            .n = 196,
+            .expected = 14,
+        },
+        {
+            .desc = "Square root of 225",
+            .n = 225,
+            .expected = 15,
+        },
+        {
+            .desc = "Square root of 46340 squared",
+            .n = 2147395600,
+            .expected = 46340,
+        },
+        {
+            .desc = "Square root of 46341 squared (overflow)",
+            .n = 2147483647,
+            .expected = 0,
+        }
     };
     int count = sizeof(tests) / sizeof(tests[0]);
 

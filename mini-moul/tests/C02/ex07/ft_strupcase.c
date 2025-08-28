@@ -52,11 +52,11 @@ int	run_tests(t_test *tests, int count)
         }
 
         strcpy(result, tests[i].src);
-        ft_strupcase(result);
+        char *returned = ft_strupcase(result);
 
-        if (strcmp(result, tests[i].expected) != 0)
+        if (returned != result || strcmp(result, tests[i].expected) != 0)
         {
-            printf("    " RED "[%d] %s Expected \"%s\", got \"%s\"\n", i + 1, tests[i].desc, tests[i].expected, result);
+            printf("    " RED "[%d] %s Expected \"%s\", got \"%s\" (return value: %s)\n", i + 1, tests[i].desc, tests[i].expected, result, returned == result ? "correct" : "incorrect");
             error -= 1;
         }
         else

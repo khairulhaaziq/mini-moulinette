@@ -66,7 +66,7 @@ int run_tests(t_test *tests, int count)
 
     for (i = 0; i < count; i++)
     {
-        char dest[strlen(tests[i].dest) + 1];
+        char dest[strlen(tests[i].expected_output) + 1];
         strcpy(dest, tests[i].dest);
 
         ft_strlcat(dest, tests[i].src, tests[i].size);

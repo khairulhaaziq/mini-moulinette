@@ -1,3 +1,4 @@
+// ALLOWED_FUNCTIONS: malloc
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -52,6 +53,27 @@ int main(void)
             .strs = (char*[]){ "Hello", "world" },
             .sep = "",
             .expected = "Helloworld"
+        },
+        {
+            .desc = "ft_strjoin with size 0 and no strs/sep",
+            .size = 0,
+            .strs = NULL,
+            .sep = NULL,
+            .expected = ""
+        },
+        {
+            .desc = "ft_strjoin with all empty strings",
+            .size = 3,
+            .strs = (char*[]){ "", "", "" },
+            .sep = "-",
+            .expected = "--"
+        },
+        {
+            .desc = "ft_strjoin with a multi-character separator across 4 strings",
+            .size = 4,
+            .strs = (char*[]){ "a", "b", "c", "d" },
+            .sep = " -> ",
+            .expected = "a -> b -> c -> d"
         }
     };
     int count = sizeof(tests) / sizeof(tests[0]);

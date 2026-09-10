@@ -1,7 +1,9 @@
+// ALLOWED_FUNCTIONS: write
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include "../../../../ex04/ft_is_negative.c"
 #include "../../../utils/constants.h"
 

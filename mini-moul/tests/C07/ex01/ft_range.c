@@ -1,3 +1,4 @@
+// ALLOWED_FUNCTIONS: malloc
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -74,12 +75,12 @@ int run_tests(t_test *tests, int count)
                 }
                 else if (memcmp(result, tests[i].expected, expected_size) != 0)
                 {
-                        printf("    " RED "[%d] %s Expected %d, got %d\n" DEFAULT, i + 1, tests[i].desc, *tests[i].expected, result[i]);
+                        printf("    " RED "[%d] %s Expected %d, got %d\n" DEFAULT, i + 1, tests[i].desc, *tests[i].expected, result[0]);
                         error -= 1;
                 }
                 else
                 {
-                        printf("  " GREEN CHECKMARK GREY " [%d] %s Expected %d, got %d\n" DEFAULT, i + 1, tests[i].desc, *tests[i].expected, result[i]);
+                        printf("  " GREEN CHECKMARK GREY " [%d] %s Expected %d, got %d\n" DEFAULT, i + 1, tests[i].desc, *tests[i].expected, result[0]);
                 }
 
                 free(result);

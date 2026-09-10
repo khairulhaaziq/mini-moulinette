@@ -1,3 +1,4 @@
+// ALLOWED_FUNCTIONS: 
 #include <stdio.h>
 #include "../../../../ex02/ft_abs.h"
 #include "../../../utils/constants.h"

@@ -1,3 +1,4 @@
+// ALLOWED_FUNCTIONS: 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -71,7 +72,7 @@ int run_tests(t_test *tests, int count)
 
         char *result = ft_strncat(dest, tests[i].src, tests[i].n);
 
-        if (strcmp(result, tests[i].expected) != 0)
+        if (result != dest || strcmp(result, tests[i].expected) != 0)
         {
             printf("    " RED "[%d] %s Expected output \"%s\", got \"%s\"\n" DEFAULT, i + 1, tests[i].desc, tests[i].expected, result);
             error -= 1;

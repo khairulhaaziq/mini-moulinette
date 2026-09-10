@@ -1,3 +1,4 @@
+// ALLOWED_FUNCTIONS: 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -43,6 +44,12 @@ int main(void)
 	    {.desc = "ft_strcapitalize(\"a1b2c3d4e5f6g7h8i9j0\")",
 	     .src = "a1b2c3d4e5f6g7h8i9j0",
 	     .expected = "A1b2c3d4e5f6g7h8i9j0"},
+	    {.desc = "ft_strcapitalize(\"123AA\") lowercases letters after a digit, mid-word",
+	     .src = "123AA",
+	     .expected = "123aa"},
+	    {.desc = "ft_strcapitalize(\"9Test\") a digit at the start of a word blocks capitalization",
+	     .src = "9Test",
+	     .expected = "9test"},
 	    {.desc = "ft_strcapitalize(\"!@#$%^&*()_+-=[]{}\\|;':\",./<>?\")",
 	     .src = "!@#$%^&*()_+-=[]{}\\|;':\",./<>?",
 	     .expected = "!@#$%^&*()_+-=[]{}\\|;':\",./<>?"},

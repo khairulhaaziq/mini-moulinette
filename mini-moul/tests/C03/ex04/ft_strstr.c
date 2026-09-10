@@ -1,3 +1,4 @@
+// ALLOWED_FUNCTIONS: 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -67,15 +68,17 @@ int run_tests(t_test *tests, int count)
     for (i = 0; i < count; i++)
     {
         char *result = ft_strstr(tests[i].str, tests[i].find);
+        char *result_desc = result ? result : "(null)";
+        char *expected_desc = tests[i].expected_output ? tests[i].expected_output : "(null)";
 
         if ((result == NULL && tests[i].expected_output != NULL) || (result != NULL && strcmp(result, tests[i].expected_output) != 0))
         {
-            printf("    " RED "[%d] %s Expected output \"%s\", got \"%s\"\n", i + 1, tests[i].desc, tests[i].expected_output, result);
+            printf("    " RED "[%d] %s Expected output \"%s\", got \"%s\"\n", i + 1, tests[i].desc, expected_desc, result_desc);
             error -= 1;
         }
         else
         {
-            printf("  " GREEN CHECKMARK GREY " [%d] %s Expected output \"%s\", got \"%s\"\n" DEFAULT, i + 1, tests[i].desc, tests[i].expected_output, result);
+            printf("  " GREEN CHECKMARK GREY " [%d] %s Expected output \"%s\", got \"%s\"\n" DEFAULT, i + 1, tests[i].desc, expected_desc, result_desc);
         }
     }
 

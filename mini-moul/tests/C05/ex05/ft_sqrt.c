@@ -1,3 +1,4 @@
+// ALLOWED_FUNCTIONS: 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -42,7 +43,36 @@ int main(void)
             .n = -5,
             .expected = 0,
         },
-        // Add more test cases here
+        {
+            .desc = "Square root of 25",
+            .n = 25,
+            .expected = 5,
+        },
+        {
+            .desc = "Square root of 10000",
+            .n = 10000,
+            .expected = 100,
+        },
+        {
+            .desc = "Square root of 10 (not a perfect square)",
+            .n = 10,
+            .expected = 0,
+        },
+        {
+            .desc = "Square root of 3 (not a perfect square)",
+            .n = 3,
+            .expected = 0,
+        },
+        {
+            .desc = "Square root of a large perfect square near INT_MAX",
+            .n = 2147395600,
+            .expected = 46340,
+        },
+        {
+            .desc = "Square root of INT_MAX (not a perfect square)",
+            .n = 2147483647,
+            .expected = 0,
+        },
     };
     int count = sizeof(tests) / sizeof(tests[0]);
 

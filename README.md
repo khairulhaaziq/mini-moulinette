@@ -151,18 +151,18 @@ See the above, you can add more tests here. You need to manage your customizatio
 | :-------------------- | :------------------------: | :--------------: | :-------------- |
 | C00                   | 9/9                        | Not yet rated    |                 |
 | C01                   | 9/9                        | Not yet rated    |                 |
-| C02                   | 12/13                      | Not yet rated    |                 |
+| C02                   | 13/13                      | Not yet rated    |                 |
 | C03                   | 6/6                        | Not yet rated    |                 |
 | C04                   | 6/6                        | Not yet rated    |                 |
-| C05                   | 8/9                        | Not yet rated    | ex05, ex06, ex07 tests doesn't cover all edge cases |
+| C05                   | 9/9                        | Not yet rated    |                 |
 | C06                   | 4/4                        | Not yet rated    |                 |
-| C07                   | 6/6                        | Not yet rated    | ex02, ex03 tests doesn't cover all edge cases |
-| C08                   | 6/6                        | Not yet rated    | every tests mostly just cover compilation |
-| C09                   | 0/3                        | Not yet rated    | WIP             |
-| C10                   | 0/4                        | Not yet rated    | WIP             |
-| C11                   | 0/8                        | Not yet rated    | WIP             |
-| C12                   | 0/18                       | Not yet rated    |                 |
-| C13                   | 0/8                        | Not yet rated    |                 |
+| C07                   | 6/6                        | Not yet rated    |                 |
+| C08                   | 6/6                        | Not yet rated    |                 |
+| C09                   | 3/3                        | Not yet rated    |                 |
+| C10                   | 4/4                        | Not yet rated    |                 |
+| C11                   | 8/8                        | Not yet rated    |                 |
+| C12                   | 18/18                      | Not yet rated    |                 |
+| C13                   | 8/8                        | Not yet rated    |                 |
 
 
 ## Contributing

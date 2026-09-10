@@ -1,3 +1,4 @@
+// ALLOWED_FUNCTIONS: 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -50,6 +51,36 @@ int main(void)
         {
             .desc = "Is a negative number prime",
             .n = -5,
+            .expected = 0,
+        },
+        {
+            .desc = "Is 0 prime",
+            .n = 0,
+            .expected = 0,
+        },
+        {
+            .desc = "Is -1 prime",
+            .n = -1,
+            .expected = 0,
+        },
+        {
+            .desc = "Is 9 prime",
+            .n = 9,
+            .expected = 0,
+        },
+        {
+            .desc = "Is 25 prime",
+            .n = 25,
+            .expected = 0,
+        },
+        {
+            .desc = "Is 97 prime",
+            .n = 97,
+            .expected = 1,
+        },
+        {
+            .desc = "Is 100 prime",
+            .n = 100,
             .expected = 0,
         },
     };

@@ -1,3 +1,4 @@
+// ALLOWED_FUNCTIONS: 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -42,7 +43,21 @@ int main(void)
             .n = -5,
             .expected = 2,
         },
-        // Add more test cases here
+        {
+            .desc = "Next prime after 17 (already prime)",
+            .n = 17,
+            .expected = 17,
+        },
+        {
+            .desc = "Next prime after 24",
+            .n = 24,
+            .expected = 29,
+        },
+        {
+            .desc = "Next prime after 90",
+            .n = 90,
+            .expected = 97,
+        },
     };
     int count = sizeof(tests) / sizeof(tests[0]);
 

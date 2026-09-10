@@ -1,3 +1,4 @@
+// ALLOWED_FUNCTIONS: malloc, free
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,6 +22,13 @@ int run_tests(t_test *tests, int count);
 int main(void)
 {
     t_test tests[] = {
+        {
+            .desc = "Convert zero (must not come out as an empty string)",
+            .nbr = "0",
+            .base_from = "0123456789",
+            .base_to = "01",
+            .expected = "0",
+        },
         {
             .desc = "Convert positive decimal to binary",
             .nbr = "42",
@@ -70,6 +78,8 @@ int run_tests(t_test *tests, int count)
     for (i = 0; i < count; i++)
     {
         char *result = ft_convert_base(tests[i].nbr, tests[i].base_from, tests[i].base_to);
+        char *result_desc = result ? result : "(null)";
+        char *expected_desc = tests[i].expected ? tests[i].expected : "(null)";
 
         if (!result && !tests[i].expected)
         {
@@ -77,7 +87,7 @@ int run_tests(t_test *tests, int count)
         }
         else if (!result || !tests[i].expected)
         {
-            printf(RED "[%d] %s got \"%s\" instead of \"%s\"\n" DEFAULT, i + 1, tests[i].desc, result, tests[i].expected);
+            printf(RED "[%d] %s got \"%s\" instead of \"%s\"\n" DEFAULT, i + 1, tests[i].desc, result_desc, expected_desc);
             error -= 1;
         }
         else if (strcmp(result, tests[i].expected) != 0)

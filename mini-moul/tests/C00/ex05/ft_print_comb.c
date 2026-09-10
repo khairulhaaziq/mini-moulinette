@@ -1,7 +1,9 @@
+// ALLOWED_FUNCTIONS: write
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include "../../../../ex05/ft_print_comb.c"
 #include "../../../utils/constants.h"
 

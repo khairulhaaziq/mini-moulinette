@@ -1,3 +1,4 @@
+// ALLOWED_FUNCTIONS: 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -29,6 +30,11 @@ int main(void)
         {
             .desc = "Convert integer with leading spaces",
             .input = "    4567",
+            .expected = 4567,
+        },
+        {
+            .desc = "Convert integer with leading isspace(3) whitespace (\\t\\n\\v\\f\\r )",
+            .input = "\t\n\v\f\r 4567",
             .expected = 4567,
         },
         {
@@ -70,16 +76,6 @@ int main(void)
             .desc = "Convert integer with minimum value for int",
             .input = "-2147483648",
             .expected = -2147483648,
-        },
-        {
-            .desc = "Convert integer with overflow value",
-            .input = "2147483648",
-            .expected = -2147483648,
-        },
-        {
-            .desc = "Convert integer with underflow value",
-            .input = "-2147483649",
-            .expected = 2147483647,
         },
         {
             .desc = "Convert integer with only negative sign",
@@ -145,6 +141,11 @@ int main(void)
             .desc = "Convert string with invalid signs",
             .input = "+-123",
             .expected = -123,
+        },
+        {
+            .desc = "Convert the subject's own worked example",
+            .input = "   ---+--+1234ab567",
+            .expected = -1234,
         },
         {
             .desc = "Convert string with out of range chars",

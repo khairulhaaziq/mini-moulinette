@@ -1,3 +1,4 @@
+// ALLOWED_FUNCTIONS: 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -18,6 +19,12 @@ int run_tests(t_test *tests, int count);
 int main(void)
 {
     t_test tests[] = {
+        {
+            .desc = "0 power 0 (the subject explicitly defines this as 1)",
+            .base = 0,
+            .power = 0,
+            .expected = 1,
+        },
         {
             .desc = "Power of 0",
             .base = 10,

@@ -1,3 +1,4 @@
+// ALLOWED_FUNCTIONS: malloc
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -75,6 +76,22 @@ int main(void)
             .expected_return = 0,
             .expected_range = NULL,
         },
+        {
+            .desc = "ft_ultimate_range with a single-element range at the top boundary",
+            .min = 2147483646,
+            .max = 2147483647,
+            .range = NULL,
+            .expected_return = 1,
+            .expected_range = (int[]){2147483646},
+        },
+        {
+            .desc = "ft_ultimate_range with a single-element range at the bottom boundary",
+            .min = -2147483648,
+            .max = -2147483647,
+            .range = NULL,
+            .expected_return = 1,
+            .expected_range = (int[]){-2147483648},
+        },
     };
     int count = sizeof(tests) / sizeof(tests[0]);
 
@@ -88,7 +105,10 @@ int run_tests(t_test *tests, int count)
 
     for (i = 0; i < count; i++)
     {
-        int *result;
+        /* start from NULL: a buggy implementation that never writes
+         * through the out-parameter leaves free() a safe no-op instead
+         * of crashing on garbage stack memory */
+        int *result = NULL;
         int expected_size = (tests[i].max - tests[i].min);
 
         int range_size = ft_ultimate_range(&result, tests[i].min, tests[i].max);

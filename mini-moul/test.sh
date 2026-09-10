@@ -21,7 +21,14 @@ score_false=0
 available_assignments=""
 result=""
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+UTILS_DIR="$SCRIPT_DIR/utils"
 dirname_found=0
+any_forbidden=0
+
+source "$UTILS_DIR/check_forbidden.sh"
+if [ ! -x "$UTILS_DIR/strip_c" ] || [ "$UTILS_DIR/strip_c.c" -nt "$UTILS_DIR/strip_c" ]; then
+    cc -std=gnu99 -O2 "$UTILS_DIR/strip_c.c" -o "$UTILS_DIR/strip_c" 2> /dev/null
+fi
 
 main()
 {
@@ -45,12 +52,71 @@ main()
                 assignment_name="$(basename "$assignment")"
                 test_name="$(ls $assignment/*.c | head -n 1)"
                 test_name="$(basename "$test_name")"
-                
-                if cc -Wall -Werror -Wextra -o test1 $(ls $assignment/*.c | head -n 1); then
-                    rm test1
+
+                # Compile the student's file in isolation, not the mini-moul
+                # test file: its own includes would otherwise mask a missing
+                # #include in the student's code.
+                source_dir="../$assignment_name"
+                if [ -f "$source_dir/Makefile" ]; then
+                    # a Makefile means its own build (own -I paths, sources
+                    # split across srcs/, ...) is the real compile step, not
+                    # a blind cc -c on whatever's directly in the folder
+                    if (cd "$source_dir" && make -s > /dev/null 2>&1); then
+                        source_compiles=1
+                    else
+                        source_compiles=0
+                    fi
+                    (cd "$source_dir" && make -s fclean > /dev/null 2>&1)
+                else
+                    shopt -s nullglob
+                    source_files=("$source_dir"/*.c)
+                    other_files=("$source_dir"/*)
+                    shopt -u nullglob
+                    source_compiles=1
+                    if [ ${#source_files[@]} -eq 0 ]; then
+                        # some exercises only turn in a header (C08's
+                        # ft.h, ft_boolean.h, ...): no .c file of their
+                        # own to isolate-compile, so only fail here if
+                        # the exercise directory has nothing in it at all
+                        if [ ${#other_files[@]} -eq 0 ]; then
+                            source_compiles=0
+                        fi
+                    else
+                        for source_file in "${source_files[@]}"; do
+                            # -I"$UTILS_DIR" makes the canonical headers
+                            # (ft_list.h, ft_stock_str.h, ...) that the real
+                            # test itself supplies available here too, so a
+                            # student who doesn't keep their own local copy
+                            # of an exercise's struct header isn't wrongly
+                            # flagged as not compiling
+                            if ! cc -std=gnu99 -Wall -Werror -Wextra -I"$UTILS_DIR" -c "$source_file" -o moul_check.o 2> /dev/null; then
+                                source_compiles=0
+                            fi
+                            rm -f moul_check.o
+                        done
+                    fi
+                fi
+
+                forbidden_found=""
+                if [ $source_compiles -eq 1 ]; then
+                    forbidden_found=$(check_forbidden_functions "$assignment" "$source_dir")
+                fi
+
+                if [ -n "$forbidden_found" ]; then
+                    checks=$((checks+1))
+                    any_forbidden=1
+                    printf "${RED}    Forbidden function(s) used: $forbidden_found${DEFAULT}\n"
+                    printf "${BG_RED}${BOLD} -42 ${DEFAULT}${PURPLE} $assignment_name/${DEFAULT}$test_name\n"
+                    space
+
+                    if [ $index -gt 0 ]; then
+                        result+=", "
+                    fi
+                    result+="${RED}$assignment_name: -42${DEFAULT}"
+                elif [ $source_compiles -eq 1 ]; then
                     checks=$((checks+1))
                     passed=$((passed+1))
-                    
+
                     if [ -d "$assignment" ]; then
                         index2=0
                         
@@ -58,9 +124,9 @@ main()
                             ((index2++))
                             checks=$((checks+1))
                             
-                            if cc -o ${test%.c} $test 2> /dev/null; then
-                                
-                                if ./${test%.c} = 0; then
+                            if cc -std=gnu99 -o ${test%.c} $test 2> /dev/null; then
+
+                                if timeout 10 ./${test%.c} = 0; then
                                     passed=$((passed+1))
                                 else
                                     break_score=1
@@ -155,18 +221,25 @@ print_footer()
     PERCENT=$((100 * marks / questions))
     #printf "Total checks:  ""${GREEN}${passed} passed  ${DEFAULT} ""${checks} total"
     printf "Result:        ${result}\n"
-    if [ $PERCENT -ge 50 ]; then
+    if [ $any_forbidden = 1 ]; then
+        printf "Final score:   ""${RED}-42/100${DEFAULT}\n"
+        printf "Status:        ""${RED}CHEATER (forbidden function used)${DEFAULT}\n"
+        footer_status=1
+    elif [ $PERCENT -ge 50 ]; then
         printf "Final score:   ""${GREEN}$(echo $PERCENT | bc)/100${DEFAULT}\n"
         printf "Status:        ""${GREEN}passed${DEFAULT}\n"
+        footer_status=0
     else
         printf "Final score:   ""${RED}$(echo $PERCENT | bc)/100${DEFAULT}\n"
         printf "Status:        ""${RED}FAILED${DEFAULT}\n"
+        footer_status=1
     fi
     end_time=$(date +%s)
     elapsed_time=$(expr $end_time - $start_time)
     printf "${GREY}Test completed. ${PINK}Total elapsed time: ${elapsed_time}s${DEFAULT}.\n"
     printf "${BLUE}Mini moulinette is updated daily. Please remember to git pull today!\n${DEFAULT}"
     space
+    return $footer_status
 }
 
 check_dependency()
@@ -188,8 +261,10 @@ if [ "${1}" = "" ]; then
 fi
 if [[ "${1}" =~ ^C(0[0-9]|1[0-3])$ ]]; then
     main "$@"
+    main_status=$?
     printf "$DEFAULT"
-    exit
+    exit $main_status
 else
     printf "${RED}Invalid argument. Please select between C00 to C13${DEFAULT}\n"
+    exit 1
 fi
